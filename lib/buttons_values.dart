@@ -9,10 +9,10 @@ class Btn {
   static const String calculate = "=";
   static const String dot = ".";
 
-  static const String perX = "1/x";
+  static const String perX = "1/";
   static const String squareX = "^2";
-  static const String powerX3 = "^3";
-  static const String permutation = "n!";
+  static const String powerXn = "^";
+  static const String permutation = "!";
   static const String leftParenthesis = "(";
   static const String rightParenthesis = ")";
 
@@ -28,7 +28,7 @@ class Btn {
   static const String n9 = "9";
 
   static const List<String> buttonValues = [
-    powerX3,
+    powerXn,
     squareX,
     perX,
     del,

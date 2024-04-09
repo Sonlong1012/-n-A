@@ -1,5 +1,7 @@
 import 'package:calculator_2sd/buttons_values.dart';
 import 'package:flutter/material.dart';
+import 'dart:math' as math;
+import 'package:math_expressions/math_expressions.dart';
 
 class Calculator extends StatefulWidget {
   const Calculator({super.key});
@@ -8,8 +10,14 @@ class Calculator extends StatefulWidget {
 }
 
 class _CalculatorState extends State<Calculator> {
-  String statement = "";
   String result = "0";
+  String equation = "0";
+  String expression = "";
+  // void testValue(String value) {
+  //   result = value;
+  //   setState(() {});
+  // }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -46,17 +54,17 @@ class _CalculatorState extends State<Calculator> {
         Container(
           padding: const EdgeInsets.all(20),
           alignment: Alignment.centerRight,
-          child: const Text(
-            'statement',
-            style: TextStyle(fontSize: 32),
+          child: Text(
+            equation,
+            style: const TextStyle(fontSize: 32),
           ),
         ),
         Container(
           padding: const EdgeInsets.all(15),
           alignment: Alignment.centerRight,
-          child: const Text(
-            'result',
-            style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
+          child: Text(
+            result,
+            style: const TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
           ),
         )
       ],
@@ -102,6 +110,7 @@ class _CalculatorState extends State<Calculator> {
               ),
               borderRadius: BorderRadius.circular(25)),
           child: InkWell(
+            onTap: () => onBtnTap(value),
             child: Center(
               child: getIcon(value),
             ),
@@ -111,6 +120,40 @@ class _CalculatorState extends State<Calculator> {
     );
   }
 
+  onBtnTap(String value) {
+    setState(() {
+      if (Btn.clr == value) {
+        equation = "0";
+        result = "0";
+      } else if (Btn.del == value) {
+        equation = equation.substring(0, equation.length - 1);
+        if (equation == "") {
+          equation = "0";
+        }
+      } else if (Btn.calculate == value) {
+        expression = equation;
+        expression = expression.replaceAll('x', '*');
+        expression = expression.replaceAll('÷', '/');
+        expression = expression.replaceAll('%', '/100');
+        try {
+          Parser p = Parser();
+          var exp = p.parse(expression);
+          ContextModel cm = ContextModel();
+          result =
+              '${exp.evaluate(EvaluationType.REAL, cm).toStringAsFixed(2)}';
+        } catch (e) {
+          result = "Error";
+        }
+      } else {
+        if (equation == "0") {
+          equation = value;
+        } else {
+          equation = equation + value;
+        }
+      }
+    });
+  }
+
   //Color
   Color getBtnColor(value) {
     return [Btn.del, Btn.clr].contains(value)
@@ -118,6 +161,7 @@ class _CalculatorState extends State<Calculator> {
         : const Color.fromRGBO(80, 80, 80, 1);
   }
 
+  //Color value
   Color getTextColor(value) {
     return [Btn.del, Btn.clr].contains(value) ? Colors.black : Colors.white;
   }
@@ -134,15 +178,19 @@ class _CalculatorState extends State<Calculator> {
             ? const Image(
                 image: AssetImage('assets/images/x2.png'),
               )
-            : [Btn.powerX3].contains(value)
-                ? const Image(image: AssetImage('assets/images/x3.png'))
-                : Text(
-                    value,
-                    style: TextStyle(
-                      color: getTextColor(value),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 24,
-                    ),
-                  );
+            : [Btn.powerXn].contains(value)
+                ? const Image(image: AssetImage('assets/images/xn.png'))
+                : [Btn.perX].contains(value)
+                    ? const Image(image: AssetImage('assets/images/perX.png'))
+                    : [Btn.permutation].contains(value)
+                        ? const Image(image: AssetImage('assets/images/n!.png'))
+                        : Text(
+                            value,
+                            style: TextStyle(
+                              color: getTextColor(value),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 24,
+                            ),
+                          );
   }
 }
