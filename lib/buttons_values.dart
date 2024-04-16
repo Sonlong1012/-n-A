@@ -27,6 +27,10 @@ class Btn {
   static const String n8 = "8";
   static const String n9 = "9";
 
+  static const String tan = "tan";
+  static const String sin = "sin";
+  static const String cos = "cos";
+
   static const List<String> buttonValues = [
     powerXn,
     squareX,
@@ -53,5 +57,11 @@ class Btn {
     leftParenthesis,
     rightParenthesis,
     calculate,
+  ];
+
+  static const List<String> buttonValues2 = [
+    tan,
+    sin,
+    cos,
   ];
 }

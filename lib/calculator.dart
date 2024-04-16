@@ -1,7 +1,9 @@
 import 'package:calculator_2sd/buttons_values.dart';
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
+import 'package:flutter/widgets.dart';
+// import 'dart:math' as math;
 import 'package:math_expressions/math_expressions.dart';
+import 'package:calculator_2sd/navbar.dart';
 
 class Calculator extends StatefulWidget {
   const Calculator({super.key});
@@ -13,6 +15,7 @@ class _CalculatorState extends State<Calculator> {
   String result = "0";
   String equation = "0";
   String expression = "";
+  bool buttonChange = false;
   // void testValue(String value) {
   //   result = value;
   //   setState(() {});
@@ -22,8 +25,10 @@ class _CalculatorState extends State<Calculator> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+      drawer: const Navbar(),
       appBar: AppBar(
-        title: const Center(
+        title: const Padding(
+          padding: EdgeInsets.only(left: 100),
           child: Text(
             "Scientific",
             style: TextStyle(color: Colors.white),
@@ -45,7 +50,7 @@ class _CalculatorState extends State<Calculator> {
     ));
   }
 
-  // statement vs rusult
+  // statement vs rusult vs button change
   Widget resultWidget() {
     return Column(
       mainAxisSize: MainAxisSize.max,
@@ -66,22 +71,60 @@ class _CalculatorState extends State<Calculator> {
             result,
             style: const TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
           ),
-        )
+        ),
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 243, 146, 1),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10))),
+                  onPressed: () => {
+                        setState(() {
+                          buttonChange =
+                              !buttonChange; // Toggle the value of buttonChange
+                        })
+                      },
+                  child: const Icon(
+                    Icons.more_outlined,
+                    color: Colors.black,
+                    size: 30,
+                  ))
+            ],
+          ),
+        ),
       ],
     );
   }
 
-  // Button values
+  // Map Button values
   Widget buttonValues() {
-    return Wrap(
-      children: Btn.buttonValues
+    return Wrap(children: mapButton());
+  }
+
+  mapButton() {
+    if (buttonChange) {
+      var newList = List.from(Btn.buttonValues);
+      newList.replaceRange(0, 3, [Btn.tan, Btn.sin, Btn.cos]);
+      return newList
           .map((value) => SizedBox(
                 width: 80,
                 height: 80,
                 child: buildButton(value),
               ))
-          .toList(),
-    );
+          .toList();
+    } else {
+      return Btn.buttonValues
+          .map((value) => SizedBox(
+                width: 80,
+                height: 80,
+                child: buildButton(value),
+              ))
+          .toList();
+    }
   }
 
   // Build Button
