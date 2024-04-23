@@ -1,5 +1,5 @@
 class Btn {
-  static const String del = "D";
+  static const String del = "Del";
   static const String clr = "AC";
   static const String per = "%";
   static const String multiply = "x";
@@ -11,8 +11,9 @@ class Btn {
 
   static const String perX = "1/";
   static const String squareX = "^2";
-  static const String powerXn = "^";
-  static const String permutation = "!";
+  // \u221A
+  static const String sqrtX = "sqrt";
+  static const String posNeg = "+/-";
   static const String leftParenthesis = "(";
   static const String rightParenthesis = ")";
 
@@ -27,12 +28,30 @@ class Btn {
   static const String n8 = "8";
   static const String n9 = "9";
 
+  static const String powerXn = "^";
+  static const String permutation = "n!";
+  static const String log = "log";
+  static const String ln = "ln";
+  static const String e = "e";
+  static const String comma = ",";
+  static const String nrt = "nrt";
+
   static const String tan = "tan";
   static const String sin = "sin";
   static const String cos = "cos";
+  // static const String arcsin = "arcsin";
+  static const String pi = "π";
+  static const String abs = "|x|";
 
-  static const List<String> buttonValues = [
-    powerXn,
+  static const String A = "A";
+  static const String B = "B";
+  static const String C = "C";
+  static const String D = "D";
+  static const String E = "E";
+  static const String F = "F";
+
+  static const List<String> buttonValuesStandard = [
+    sqrtX,
     squareX,
     perX,
     del,
@@ -51,7 +70,7 @@ class Btn {
     n2,
     n3,
     add,
-    permutation,
+    posNeg,
     n0,
     dot,
     leftParenthesis,
@@ -59,9 +78,43 @@ class Btn {
     calculate,
   ];
 
-  static const List<String> buttonValues2 = [
+  static const List<String> buttonValuesScientific = [
+    powerXn,
+    permutation,
+    nrt,
+    ln,
+    e,
+  ];
+
+  static const List<String> buttonValuesVisibility = [
     tan,
     sin,
     cos,
+    pi,
+    log,
+    comma,
+    abs,
+  ];
+
+  static const List<String> buttonValuesBaseConverstion = [
+    n7,
+    n8,
+    n9,
+    clr,
+    n4,
+    n5,
+    n6,
+    del,
+    n1,
+    n2,
+    n3,
+    n0,
+    A,
+    B,
+    C,
+    D,
+    E,
+    F,
+    calculate,
   ];
 }
