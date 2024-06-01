@@ -1,5 +1,5 @@
-import 'package:calculator_2sd/BaseConversion.dart';
-import 'package:calculator_2sd/calculator.dart';
+import 'package:calculator_2sd/program.dart';
+import 'package:calculator_2sd/scientific.dart';
 import 'package:calculator_2sd/myteam.dart';
 import 'package:calculator_2sd/standard.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +40,7 @@ class Navbar extends StatelessWidget {
                 ),
               ),
               onTap: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const Calculator())),
+                  MaterialPageRoute(builder: (context) => const Scientific())),
             ),
             ListTile(
               leading: const Icon(
@@ -48,15 +48,13 @@ class Navbar extends StatelessWidget {
                 size: 40,
               ),
               title: const Text(
-                'BaseConversion',
+                'Program',
                 style: TextStyle(
                   fontSize: 20,
                 ),
               ),
-              onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const BaseConversion())),
+              onTap: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const Program())),
             ),
             const Divider(),
             ListTile(

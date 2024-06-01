@@ -1,4 +1,4 @@
-import 'package:calculator_2sd/calculator.dart';
+// import 'package:calculator_2sd/scientific.dart';
 import 'package:calculator_2sd/standard.dart';
 import 'package:flutter/material.dart';
 

@@ -29,7 +29,7 @@ class Btn {
   static const String n9 = "9";
 
   static const String powerXn = "^";
-  static const String permutation = "n!";
+  static const String permutation = "!";
   static const String log = "log";
   static const String ln = "ln";
   static const String e = "e";

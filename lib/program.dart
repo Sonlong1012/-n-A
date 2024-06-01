@@ -1,21 +1,17 @@
 import 'package:calculator_2sd/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:calculator_2sd/buttons_values.dart';
+import 'package:calculator_2sd/CalculatorController.dart';
 
-class BaseConversion extends StatefulWidget {
-  const BaseConversion({super.key});
+class Program extends StatefulWidget {
+  const Program({super.key});
 
   @override
-  State<BaseConversion> createState() => _BaseConversionState();
+  State<Program> createState() => _ProgramState();
 }
 
-class _BaseConversionState extends State<BaseConversion> {
-  final TextEditingController _textDecController = TextEditingController();
-  final TextEditingController _textHexController = TextEditingController();
-  final TextEditingController _textOctController = TextEditingController();
-  final TextEditingController _textBinController = TextEditingController();
-  int _selectedTextFieldIndex = -1;
-
+class _ProgramState extends State<Program> {
+  final CalculatorController _controller = CalculatorController();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -61,7 +57,8 @@ class _BaseConversionState extends State<BaseConversion> {
                         shape: const CircleBorder(),
                         backgroundColor:
                             const Color.fromARGB(255, 243, 146, 1)),
-                    onPressed: onButtonDec,
+                    onPressed: () =>
+                        _controller.onButtonDecProgram(() => setState(() {})),
                     child: const Icon(Icons.replay_circle_filled_outlined,
                         color: Colors.black)),
                 const Text(
@@ -73,9 +70,9 @@ class _BaseConversionState extends State<BaseConversion> {
                   padding: const EdgeInsets.only(left: 30),
                   child: TextField(
                     style: const TextStyle(fontSize: 20),
-                    controller: _textDecController,
+                    controller: _controller.textDecController,
                     onTap: () {
-                      _selectedTextFieldIndex = 1;
+                      _controller.selecInput(1);
                     },
                     readOnly: true,
                     decoration: const InputDecoration(hintText: 'Dec'),
@@ -94,7 +91,8 @@ class _BaseConversionState extends State<BaseConversion> {
                         shape: const CircleBorder(),
                         backgroundColor:
                             const Color.fromARGB(255, 243, 146, 1)),
-                    onPressed: onButtonHex,
+                    onPressed: () =>
+                        _controller.onButtonHexProgram(() => setState(() {})),
                     child: const Icon(Icons.replay_circle_filled_outlined,
                         color: Colors.black)),
                 const Text(
@@ -107,9 +105,9 @@ class _BaseConversionState extends State<BaseConversion> {
                   child: TextField(
                     style: const TextStyle(fontSize: 20),
                     onTap: () {
-                      _selectedTextFieldIndex = 2;
+                      _controller.selecInput(2);
                     },
-                    controller: _textHexController,
+                    controller: _controller.textHexController,
                     readOnly: true,
                     decoration: const InputDecoration(hintText: 'Hex'),
                   ),
@@ -127,7 +125,8 @@ class _BaseConversionState extends State<BaseConversion> {
                         shape: const CircleBorder(),
                         backgroundColor:
                             const Color.fromARGB(255, 243, 146, 1)),
-                    onPressed: onButtonOct,
+                    onPressed: () =>
+                        _controller.onButtonOctProgram(() => setState(() {})),
                     child: const Icon(Icons.replay_circle_filled_outlined,
                         color: Colors.black)),
                 const Text(
@@ -141,10 +140,10 @@ class _BaseConversionState extends State<BaseConversion> {
                     style: const TextStyle(fontSize: 20),
                     onTap: () {
                       setState(() {
-                        _selectedTextFieldIndex = 3;
+                        _controller.selecInput(3);
                       });
                     },
-                    controller: _textOctController,
+                    controller: _controller.textOctController,
                     readOnly: true,
                     decoration: const InputDecoration(hintText: 'Oct'),
                   ),
@@ -162,7 +161,8 @@ class _BaseConversionState extends State<BaseConversion> {
                         shape: const CircleBorder(),
                         backgroundColor:
                             const Color.fromARGB(255, 243, 146, 1)),
-                    onPressed: onButtonBin,
+                    onPressed: () =>
+                        _controller.onButtonBinProgram(() => setState(() {})),
                     child: const Icon(Icons.replay_circle_filled_outlined,
                         color: Colors.black)),
                 const Text(
@@ -176,10 +176,10 @@ class _BaseConversionState extends State<BaseConversion> {
                     style: const TextStyle(fontSize: 20),
                     onTap: () {
                       setState(() {
-                        _selectedTextFieldIndex = 4;
+                        _controller.selecInput(4);
                       });
                     },
-                    controller: _textBinController,
+                    controller: _controller.textBinController,
                     readOnly: true,
                     decoration: const InputDecoration(hintText: 'Bin'),
                   ),
@@ -204,16 +204,6 @@ class _BaseConversionState extends State<BaseConversion> {
                 ))
             .toList());
   }
-
-  // mapButton() {
-  //   return Btn.buttonValuesBaseConverstion
-  //       .map((value) => SizedBox(
-  //             width: 80,
-  //             height: 80,
-  //             child: buildButton(value),
-  //           ))
-  //       .toList();
-  // }
 
   // Build Button
   Widget buildButton(value) {
@@ -241,178 +231,13 @@ class _BaseConversionState extends State<BaseConversion> {
                   ),
                   borderRadius: BorderRadius.circular(25)),
               child: InkWell(
-                onTap: () => onTapButton(value),
+                onTap: () => _controller.onTapButtonProgram(
+                    value, () => setState(() {})),
                 child: Center(
                   child: getIcon(value),
                 ),
               ),
             )));
-  }
-
-  onButtonDec() {
-    setState(() {
-      try {
-        _textHexController.text =
-            int.parse(_textDecController.text).toRadixString(16).toUpperCase();
-        _textOctController.text =
-            int.parse(_textDecController.text).toRadixString(8);
-        _textBinController.text =
-            int.parse(_textDecController.text).toRadixString(2);
-      } catch (e) {
-        _textDecController.text = 'erorr';
-      }
-    });
-  }
-
-  onButtonHex() {
-    setState(() {
-      try {
-        _textDecController.text =
-            int.parse(_textHexController.text, radix: 16).toString();
-        _textOctController.text =
-            int.parse(_textDecController.text).toRadixString(8);
-        _textBinController.text =
-            int.parse(_textDecController.text).toRadixString(2);
-      } catch (e) {
-        _textBinController.text = 'erorr';
-      }
-    });
-  }
-
-  onButtonOct() {
-    setState(() {
-      try {
-        _textDecController.text =
-            int.parse(_textOctController.text, radix: 8).toString();
-        _textHexController.text =
-            int.parse(_textDecController.text).toRadixString(16).toUpperCase();
-        _textBinController.text =
-            int.parse(_textDecController.text).toRadixString(2);
-      } catch (e) {
-        _textOctController.text = 'error';
-      }
-    });
-  }
-
-  onButtonBin() {
-    setState(() {
-      try {
-        _textDecController.text =
-            int.parse(_textBinController.text, radix: 2).toString();
-        _textHexController.text =
-            int.parse(_textDecController.text).toRadixString(16).toUpperCase();
-        _textOctController.text =
-            int.parse(_textDecController.text).toRadixString(8);
-      } catch (e) {
-        _textBinController.text = 'error';
-      }
-    });
-  }
-
-  onTapButton(String value) {
-    // _textEditingController.text = number;
-
-    setState(() {
-      if (Btn.clr == value) {
-        _textDecController.text = "";
-        _textHexController.text = "";
-        _textOctController.text = "";
-        _textBinController.text = "";
-      } else if (Btn.del == value) {
-        if (_selectedTextFieldIndex == 1) {
-          _textDecController.text = _textDecController.text
-              .substring(0, _textDecController.text.length - 1);
-        } else if (_selectedTextFieldIndex == 2) {
-          _textHexController.text = _textHexController.text
-              .substring(0, _textHexController.text.length - 1);
-        } else if (_selectedTextFieldIndex == 3) {
-          _textOctController.text = _textOctController.text
-              .substring(0, _textOctController.text.length - 1);
-        } else {
-          _textBinController.text = _textBinController.text
-              .substring(0, _textBinController.text.length - 1);
-        }
-
-        // if (_textDecController.text == "") {
-        //   _textDecController.text = "";
-        // }
-      } else if (Btn.calculate == value) {
-        if (_selectedTextFieldIndex == 1) {
-          try {
-            _textHexController.text = int.parse(_textDecController.text)
-                .toRadixString(16)
-                .toUpperCase();
-            _textOctController.text =
-                int.parse(_textDecController.text).toRadixString(8);
-            _textBinController.text =
-                int.parse(_textDecController.text).toRadixString(2);
-          } catch (e) {
-            _textDecController.text = 'erorr';
-          }
-        } else if (_selectedTextFieldIndex == 2) {
-          try {
-            _textDecController.text =
-                int.parse(_textHexController.text, radix: 16).toString();
-            _textOctController.text =
-                int.parse(_textDecController.text).toRadixString(8);
-            _textBinController.text =
-                int.parse(_textDecController.text).toRadixString(2);
-          } catch (e) {
-            _textBinController.text = 'erorr';
-          }
-        } else if (_selectedTextFieldIndex == 3) {
-          try {
-            _textDecController.text =
-                int.parse(_textOctController.text, radix: 8).toString();
-            _textHexController.text = int.parse(_textDecController.text)
-                .toRadixString(16)
-                .toUpperCase();
-            _textBinController.text =
-                int.parse(_textDecController.text).toRadixString(2);
-          } catch (e) {
-            _textOctController.text = 'error';
-          }
-        } else {
-          try {
-            _textDecController.text =
-                int.parse(_textBinController.text, radix: 2).toString();
-            _textHexController.text = int.parse(_textDecController.text)
-                .toRadixString(16)
-                .toUpperCase();
-            _textOctController.text =
-                int.parse(_textDecController.text).toRadixString(8);
-          } catch (e) {
-            _textBinController.text = 'error';
-          }
-        }
-      } else {
-        if (_selectedTextFieldIndex == 1) {
-          if (_textDecController.text == "") {
-            _textDecController.text = value;
-          } else {
-            _textDecController.text = _textDecController.text + value;
-          }
-        } else if (_selectedTextFieldIndex == 2) {
-          if (_textHexController.text == "") {
-            _textHexController.text = value;
-          } else {
-            _textHexController.text = _textHexController.text + value;
-          }
-        } else if (_selectedTextFieldIndex == 3) {
-          if (_textOctController.text == "") {
-            _textOctController.text = value;
-          } else {
-            _textOctController.text = _textOctController.text + value;
-          }
-        } else {
-          if (_textBinController.text == "") {
-            _textBinController.text = value;
-          } else {
-            _textBinController.text = _textBinController.text + value;
-          }
-        }
-      }
-    });
   }
 
   //Color
