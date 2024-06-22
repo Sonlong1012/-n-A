@@ -1,3 +1,4 @@
+import 'package:calculator_2sd/Aboutus.dart';
 import 'package:calculator_2sd/program.dart';
 import 'package:calculator_2sd/scientific.dart';
 import 'package:calculator_2sd/myteam.dart';
@@ -68,6 +69,18 @@ class Navbar extends StatelessWidget {
               ),
               onTap: () => Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const MyTeam())),
+            ),
+            ListTile(
+              leading: const Icon(
+                Icons.groups_sharp,
+                size: 40,
+              ),
+              title: const Text(
+                'About us',
+                style: TextStyle(fontSize: 20),
+              ),
+              onTap: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) =>  const AboutUs())),
             )
           ],
         ),
