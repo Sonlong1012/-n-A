@@ -72,6 +72,7 @@ flutter:
     - assets/images/tri.jpg
     - assets/images/phuc.jpg
     - assets/images/long.jpg
+    - assets/images/maytinh.png
     # - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

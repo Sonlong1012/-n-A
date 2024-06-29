@@ -26,10 +26,10 @@ class AboutUs extends StatelessWidget {
                   ),
                   SizedBox(height: 10),
                   Text(
-                    'My name is Nick Endle, and I started Endle Home Goods (formerly known as Nick\'s Wood Shop) in 2014.\n\n'
-                    'Although I grew up in a family full of craftspeople, I was always more interested in technology and computers than woodworking.\n\n'
-                    'I had great respect and admiration for what they were doing, and I spent lots of time helping-but I never had any ambition to be covered in sawdust all day working my hands to the bone like them.\n\n'
-                    'Now, I use my skills to create beautiful and functional home goods that people can enjoy for years to come.',
+                    'Xin chào Thầy (Cô) nhóm chúng em đã làm ra dự án máy tính khoa học \n\n'
+                    'Tuy ứng dụng vẫn chưa phải là hoàn chỉnh nhất nhưng nhóm chúng em đã cố gắng nổ lực để hoàn thiện một cách tốt nhất.\n\n'
+                    'Ứng dụng được viết trên ngôn ngữ dart và sử dụng flutter framework để làm ra.\n\n'
+                    'Ứng dụng có giao diện dễ sử dụng và dễ tiếp cận với người mới'
                     // style: TextStyle(fontSize: 16, color: Colors.black),
                   ),
                 ],
@@ -38,7 +38,7 @@ class AboutUs extends StatelessWidget {
             Expanded(
               flex: 1,
               child: Image.asset(
-                'assets/images/tri.png',
+                'assets/images/maytinh.png',
                 width: 300,
                 height: 200,
               ),
